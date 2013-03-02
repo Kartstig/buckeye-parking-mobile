@@ -1,0 +1,6 @@
+Logfile initialized
+[INFO] logfile = /home/herman/Dev/buckeye-parking-mobile/build.log
+[DEBUG] /home/herman/.titanium/mobilesdk/linux/3.0.2.GA/android/builder.py simulator buckeye-parking-mobile /home/herman/Dev/sdk /home/herman/Dev/buckeye-parking-mobile com.singh.buckeyeparking 3 WQVGA432 
+[INFO] Building buckeye-parking-mobile for Android ... one moment
+[ERROR] Missing Java SDK. Please make sure Java SDK is on your PATH (exception: [Errno 2] No such file or directory)
+[INFO] Android Emulator has exited
