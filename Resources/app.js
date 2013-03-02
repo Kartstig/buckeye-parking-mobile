@@ -4,6 +4,38 @@ var addr = "2138 Triad Court";
 var city = "Columbus";
 var state = "OH";
 
+var pinList = { "Pins" : [
+{
+"name" : "Tommy's Pizza",
+"address" : "1350 W Lane Ave",
+"city" : "Columbus",
+"state" : "OH",
+"price" : "30",
+}
+{
+"name" : "CVS",
+"address" : "2160 N High St",
+"city" : "Columbus",
+"state" : "OH",
+"price" : "25",
+}
+{
+"name" : "Campus Pit Stop",
+"address" : "868 W Lane Ave",
+"city" : "Columbus",
+"state" : "OH",
+"price" : "20",
+}
+{
+"name" : "Newmann Center",
+"address" : "64 W Lane Ave",
+"city" : "Columbus",
+"state" : "OH",
+"price" : "30",
+}
+]
+}
+
 function createPin(address, callback) {
 
 	var lat_long = [];
