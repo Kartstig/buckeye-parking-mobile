@@ -3,6 +3,8 @@ var win = Titanium.UI.createWindow();
 // JSON that has all the pins to put on the map
 var pinsUrl = "https://raw.github.com/Kartstig/buckeye-parking-mobile/master/pins.json";
 
+var annos = [];
+
 function createPin(callback) {
 
 	var lat_long = [];
@@ -20,33 +22,33 @@ function createPin(callback) {
 		if (response.status == "OK") {
 			// iterate through the JSON to build annotation sets
 			var currentPin;
-			for (var i = 0; i < response.pins.length - 1; i++) {
+			for (var i = 0; i < response.pins.length; i++) {
 				currentPin = response.pins[0];
 
 				// Debugging
 				Ti.API.debug("lat : " + currentPin.lat);
 				Ti.API.debug("lng : " + currentPin.lng);
 
-				var annos = ( {
+				annos.push(Titanium.Map.createAnnotation({
 					title : currentPin.name,
 					pincolor : Titanium.Map.ANNOTATION_RED,
 					animate : true,
 					latitude : currentPin.lat,
 					longitude : currentPin.lng,
 
-				});
+				}));
 			}
 			
-			callback(Titanium.Map.createAnnotation(annos));
+			callback(annos);
 
 		} else {
 			showAlert('', 'Unable to find Address');
 		}
 	};
-
+	
 }
 
-function display_annotation(anno) {
+function display_annotation(annos) {
 
 	// Google Maps View
 	var mapView = Titanium.Map.createView({
@@ -61,7 +63,7 @@ function display_annotation(anno) {
 		regionFit : true,
 		userLocation : false,
 		// use annotations to place pins on the map
-		annotations : [anno],
+		annotations : annos,
 	});
 
 	win.add(mapView);
