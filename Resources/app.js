@@ -7,6 +7,7 @@ function createPin(callback) {
 
 	var lat_long = [];
 
+	// Debug URL
 	Ti.API.debug(pinsUrl);
 
 	/* web-service call */
@@ -20,21 +21,23 @@ function createPin(callback) {
 			// iterate through the JSON to build annotation sets
 			var currentPin;
 			for (var i = 0; i < response.pins.length - 1; i++) {
-				currentPin = response.pins[i];
+				currentPin = response.pins[0];
 
 				// Debugging
 				Ti.API.debug("lat : " + currentPin.lat);
-				Ti.API.debug("lng : " + curerntPin.lng);
+				Ti.API.debug("lng : " + currentPin.lng);
 
-				callback(Titanium.Map.createAnnotation({
+				var annos = ( {
 					title : currentPin.name,
 					pincolor : Titanium.Map.ANNOTATION_RED,
 					animate : true,
 					latitude : currentPin.lat,
 					longitude : currentPin.lng,
 
-				}));
+				});
 			}
+			
+			callback(Titanium.Map.createAnnotation(annos));
 
 		} else {
 			showAlert('', 'Unable to find Address');
@@ -44,7 +47,7 @@ function createPin(callback) {
 }
 
 function display_annotation(anno) {
-	
+
 	// Google Maps View
 	var mapView = Titanium.Map.createView({
 		mapType : Titanium.Map.STANDARD_TYPE,
