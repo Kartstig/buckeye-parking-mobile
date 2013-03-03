@@ -1,5 +1,5 @@
 // Main UI Window
-var win = Titanium.UI.createWindow({
+var win1 = Titanium.UI.createWindow({
 	title : 'Map View',
 	backgroundColor : '#fff',
 	tabBarHidden : true,
@@ -9,8 +9,8 @@ var win = Titanium.UI.createWindow({
 
 // Change default image view for splash
 var splashView = Titanium.UI.createImageView({
-	image : '/image_name.png',
-	defaultImage : '/my_default_BG_image.png'
+	image : '/Resources/default.png',
+	defaultImage : '/Resources/default.png'
 });
 
 function createPin(currentView) {
@@ -34,9 +34,10 @@ function createPin(currentView) {
 			for (var i = 0; i < response.pins.length; i++) {
 				currentPin = response.pins[i];
 
-				// Debugging
-				Ti.API.debug("lat : " + currentPin.lat);
-				Ti.API.debug("lng : " + currentPin.lng);
+				/* Debugging
+				 Ti.API.debug("lat : " + currentPin.lat);
+				 Ti.API.debug("lng : " + currentPin.lng);
+				 */
 
 				var annos = Titanium.Map.createAnnotation({
 					title : currentPin.name,
@@ -57,23 +58,7 @@ function createPin(currentView) {
 
 	};
 
-
 }
-
-/*
-bb1.addEventListener('click',function(e)
-{
-// handle tableview click events
-var idx = e.index;
-switch(idx)
-{
-case 0: {win.add(tableview); Ti.API.info("login");break;}
-case 1: {win.add(reg_tableview); Ti.API.info("register"); break; }
-case 2: {Ti.API.info("configure"); break; }
-
-}
-});
-*/
 
 // Google Maps View
 var mapView = Titanium.Map.createView({
@@ -86,14 +71,51 @@ var mapView = Titanium.Map.createView({
 	},
 	animate : true,
 	regionFit : true,
-	userLocation : false
+	userLocation : false,
+	top : 30
 	// use annotations to place pins on the map
 	//annotations : createPin()
 });
 
+// Button View
+var buttonView = Titanium.UI.createView({
+	top : 0,
+	height : 30,
+	backgroundGradient : {
+		type : 'linear',
+		colors : ['#15317E', '#151B54'],
+		startPoint : {
+			x : 0,
+			y : 0
+		},
+		endPoint : {
+			x : 0,
+			y : 30
+		},
+		backFillStart : false
+	}
+})
+
+// Buttons
+var loginButton = Titanium.UI.createButton({
+	title : 'Login',
+	top : 1,
+	right : 1,
+	width : 50,
+	height : 28,
+});
+buttonView.add(loginButton);
+
+// Listeners
+loginButton.addEventListener('click', function(e) {
+	Titanium.API.info("You clicked the button");
+});
+
 createPin(mapView);
 
-win.add(mapView);
+// Add Views
+win1.add(mapView);
+win1.add(buttonView);
 
-win.open();
+win1.open();
 
