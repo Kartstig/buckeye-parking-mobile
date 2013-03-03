@@ -1,40 +1,41 @@
-{ "pins" : [
-	{
-	"name" : "Tommy's Pizza",
-	"address" : "1350 W Lane Ave",
-	"city" : "Columbus",
-	"state" : "OH",
-	"lat" : "40.007239",
-	"lng" : "-83.046130",
-	"price" : "30"
-	},
-	{
-	"name" : "CVS",
-	"address" : "2160 N High St",
-	"city" : "Columbus",
-	"state" : "OH",
-	"lat" : "40.006628",
-	"lng" : "-83.009708",
-	"price" : "25"
-	},
-	{
-	"name" : "Campus Pit Stop",
-	"address" : "868 W Lane Ave",
-	"city" : "Columbus",
-	"state" : "OH",
-	"lat" : "40.006879",
-	"lng" : "-83.033753",
-	"price" : "20"
-	},
-	{
-	"name" : "Newmann Center",
-	"address" : "64 W Lane Ave",
-	"city" : "Columbus",
-	"state" : "OH",
-	"lat" : "40.006157",
-	"lng" : "-83.011257",
-	"price" : "30"
-	}
-	],
-	"status" : "OK"
+{
+    "pins": [
+        {
+            "name": "Tommy's Pizza",
+            "address": "1350 W Lane Ave",
+            "city": "Columbus",
+            "state": "OH",
+            "lat": "40.007239",
+            "lng": "-83.046130",
+            "price": "30"
+        },
+        {
+            "name": "CVS",
+            "address": "2160 N High St",
+            "city": "Columbus",
+            "state": "OH",
+            "lat": "40.006628",
+            "lng": "-83.009708",
+            "price": "25"
+        },
+        {
+            "name": "Campus Pit Stop",
+            "address": "868 W Lane Ave",
+            "city": "Columbus",
+            "state": "OH",
+            "lat": "40.006879",
+            "lng": "-83.033753",
+            "price": "20"
+        },
+        {
+            "name": "Newmann Center",
+            "address": "64 W Lane Ave",
+            "city": "Columbus",
+            "state": "OH",
+            "lat": "40.006157",
+            "lng": "-83.011257",
+            "price": "30"
+        }
+    ],
+    "status": "OK"
 }
