@@ -1,79 +1,35 @@
 var win = Titanium.UI.createWindow();
 
-var addr = "2138 Triad Court";
-var city = "Columbus";
-var state = "OH";
+var pinsUrl = "https://raw.github.com/Kartstig/buckeye-parking-mobile/master/pins.json";
 
-var pinList = { "Pins" : [
-{
-"name" : "Tommy's Pizza",
-"address" : "1350 W Lane Ave",
-"city" : "Columbus",
-"state" : "OH",
-"price" : "30",
-}
-{
-"name" : "CVS",
-"address" : "2160 N High St",
-"city" : "Columbus",
-"state" : "OH",
-"price" : "25",
-}
-{
-"name" : "Campus Pit Stop",
-"address" : "868 W Lane Ave",
-"city" : "Columbus",
-"state" : "OH",
-"price" : "20",
-}
-{
-"name" : "Newmann Center",
-"address" : "64 W Lane Ave",
-"city" : "Columbus",
-"state" : "OH",
-"price" : "30",
-}
-]
-}
-
-function createPin(address, callback) {
+function createPin(callback) {
 
 	var lat_long = [];
 
-	var addrsplit = address.split(" ");
-	var citysplit = city.split(" ");
-
-	var addrjoin = addrsplit.join("+");
-	var cityjoin = citysplit.join("+");
-
-	var addrUrl = "http://maps.googleapis.com/maps/api/geocode/json?address=" + addrjoin + "," + cityjoin + "," + state + "&sensor=false";
-
-	Ti.API.info(addrUrl);
+	Ti.API.debug(pinsUrl);
 
 	/* web-service call */
-	var addrReq = Titanium.Network.createHTTPClient();
-	addrReq.open("GET", addrUrl);
-	addrReq.send();
+	var pinsReq = Titanium.Network.createHTTPClient();
+	pinsReq.open("GET", pinsUrl);
+	pinsReq.send();
 
-	addrReq.onload = function() {
+	pinsReq.onload = function() {
 		var response = JSON.parse(this.responseText);
-		Ti.API.info(response.toString());
 		if (response.status == "OK") {
-			// Debugging
-			Ti.API.info("lat : " + response.results[0].geometry.location.lat);
-			Ti.API.info("lng : " + response.results[0].geometry.location.lng);
+			for (var i = 0; i < response.pins.length; i++) {
+				// Debugging
+				Ti.API.debug("lat : " + response.pins[i].lat);
+				Ti.API.debug("lng : " + response.pins[i].lng);
 
-			lat_long[0] = response.results[0].geometry.location.lat;
-			lat_long[1] = response.results[0].geometry.location.lng;
+				callback(Titanium.Map.createAnnotation({
+					title : response.pins[i].name,
+					pincolor : Titanium.Map.ANNOTATION_RED,
+					animate : true,
+					latitude : response.pins[i].lat,
+					longitude : response.pins[i].lng,
 
-			callback(Titanium.Map.createAnnotation({
-				title : "Parking Spots",
-				pincolor : Titanium.Map.ANNOTATION_RED,
-				animate : true,
-				latitude : lat_long[0],
-				longitude : lat_long[1],
-
-			}));
+				}));
+			}
 
 			//return lat_long;
 		} else {
@@ -105,4 +61,4 @@ function display_annotation(anno) {
 	win.open();
 }
 
-var pins = [createPin(addr, display_annotation)];
+createPin(display_annotation);
