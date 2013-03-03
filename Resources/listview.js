@@ -8,3 +8,4 @@ var table = Ti.UI.createTableView({
 });
 win.add(table);
 win.open();
+
