@@ -18,17 +18,20 @@ function createPin(callback) {
 		var response = JSON.parse(this.responseText);
 		if (response.status == "OK") {
 			// iterate through the JSON to build annotation sets
-			for (var i = 0; i < response.pins.length; i++) {
+			var currentPin;
+			for (var i = 0; i < response.pins.length - 1; i++) {
+				currentPin = response.pins[i];
+
 				// Debugging
-				Ti.API.debug("lat : " + response.pins[i].lat);
-				Ti.API.debug("lng : " + response.pins[i].lng);
+				Ti.API.debug("lat : " + currentPin.lat);
+				Ti.API.debug("lng : " + curerntPin.lng);
 
 				callback(Titanium.Map.createAnnotation({
-					title : response.pins[i].name,
+					title : currentPin.name,
 					pincolor : Titanium.Map.ANNOTATION_RED,
 					animate : true,
-					latitude : response.pins[i].lat,
-					longitude : response.pins[i].lng,
+					latitude : currentPin.lat,
+					longitude : currentPin.lng,
 
 				}));
 			}
