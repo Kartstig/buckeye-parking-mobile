@@ -6,13 +6,13 @@ var win1 = Titanium.UI.createWindow({
 	navBarHidden : true,
 
 });
-
-// Change default image view for splash
-var splashView = Titanium.UI.createImageView({
-	image : '/Resources/default.png',
-	defaultImage : '/Resources/default.png'
-});
-
+/*
+ // Change default image view for splash
+ var splashView = Titanium.UI.createImageView({
+ image : '/Resources/default.png',
+ defaultImage : '/Resources/default.png'
+ });
+ */
 function createPin(currentView) {
 
 	// JSON that has all the pins to put on the map
@@ -72,7 +72,7 @@ var mapView = Titanium.Map.createView({
 	animate : true,
 	regionFit : true,
 	userLocation : false,
-	top : 30
+	top : 40
 	// use annotations to place pins on the map
 	//annotations : createPin()
 });
@@ -80,7 +80,7 @@ var mapView = Titanium.Map.createView({
 // Button View
 var buttonView = Titanium.UI.createView({
 	top : 0,
-	height : 30,
+	height : 40,
 	backgroundGradient : {
 		type : 'linear',
 		colors : ['#15317E', '#151B54'],
@@ -90,7 +90,7 @@ var buttonView = Titanium.UI.createView({
 		},
 		endPoint : {
 			x : 0,
-			y : 30
+			y : 40
 		},
 		backFillStart : false
 	}
@@ -98,16 +98,29 @@ var buttonView = Titanium.UI.createView({
 
 // Buttons
 var loginButton = Titanium.UI.createButton({
-	title : 'Login',
-	top : 1,
+	top : 2,
 	right : 1,
-	width : 50,
-	height : 28,
+	height : 35,
+	width : 46,
+	backgroundImage : '/user.png'
 });
 buttonView.add(loginButton);
 
+var searchButton = Titanium.UI.createButton({
+	top : 2,
+	right : 66,
+	height : 35,
+	width : 34,
+	backgroundImage : '/search.png'
+});
+buttonView.add(searchButton);
+
 // Listeners
 loginButton.addEventListener('click', function(e) {
+	Titanium.API.info("You clicked the button");
+});
+
+searchButton.addEventListener('click', function(f) {
 	Titanium.API.info("You clicked the button");
 });
 
