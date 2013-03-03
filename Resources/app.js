@@ -1,13 +1,22 @@
-var win = Titanium.UI.createWindow();
+// Main UI Window
+var win = Titanium.UI.createWindow({
+	title : 'Map View',
+	backgroundColor : '#fff',
+	tabBarHidden : true,
+	navBarHidden : true,
 
-// JSON that has all the pins to put on the map
-var pinsUrl = "https://raw.github.com/Kartstig/buckeye-parking-mobile/master/pins.json";
+});
 
-var annos = [];
+// Change default image view for splash
+var splashView = Titanium.UI.createImageView({
+	image : '/image_name.png',
+	defaultImage : '/my_default_BG_image.png'
+});
 
-function createPin(callback) {
+function createPin(currentView) {
 
-	var lat_long = [];
+	// JSON that has all the pins to put on the map
+	var pinsUrl = "https://raw.github.com/Kartstig/buckeye-parking-mobile/master/pins.json";
 
 	// Debug URL
 	Ti.API.debug(pinsUrl);
@@ -23,52 +32,68 @@ function createPin(callback) {
 			// iterate through the JSON to build annotation sets
 			var currentPin;
 			for (var i = 0; i < response.pins.length; i++) {
-				currentPin = response.pins[0];
+				currentPin = response.pins[i];
 
 				// Debugging
 				Ti.API.debug("lat : " + currentPin.lat);
 				Ti.API.debug("lng : " + currentPin.lng);
 
-				annos.push(Titanium.Map.createAnnotation({
+				var annos = Titanium.Map.createAnnotation({
 					title : currentPin.name,
 					pincolor : Titanium.Map.ANNOTATION_RED,
 					animate : true,
 					latitude : currentPin.lat,
 					longitude : currentPin.lng,
 
-				}));
+				});
+
+				currentView.addAnnotation(annos);
 			}
-			
-			callback(annos);
 
 		} else {
 			showAlert('', 'Unable to find Address');
+
 		}
+
 	};
-	
+
+
 }
 
-function display_annotation(annos) {
+/*
+bb1.addEventListener('click',function(e)
+{
+// handle tableview click events
+var idx = e.index;
+switch(idx)
+{
+case 0: {win.add(tableview); Ti.API.info("login");break;}
+case 1: {win.add(reg_tableview); Ti.API.info("register"); break; }
+case 2: {Ti.API.info("configure"); break; }
 
-	// Google Maps View
-	var mapView = Titanium.Map.createView({
-		mapType : Titanium.Map.STANDARD_TYPE,
-		region : {
-			latitude : 40.001780,
-			longitude : -83.019691,
-			latitudeDelta : 0.04,
-			longitudeDelta : 0.04
-		},
-		animate : true,
-		regionFit : true,
-		userLocation : false,
-		// use annotations to place pins on the map
-		annotations : annos,
-	});
-
-	win.add(mapView);
-
-	win.open();
 }
+});
+*/
 
-createPin(display_annotation);
+// Google Maps View
+var mapView = Titanium.Map.createView({
+	mapType : Titanium.Map.STANDARD_TYPE,
+	region : {
+		latitude : 40.001780,
+		longitude : -83.019691,
+		latitudeDelta : 0.04,
+		longitudeDelta : 0.04
+	},
+	animate : true,
+	regionFit : true,
+	userLocation : false
+	// use annotations to place pins on the map
+	//annotations : createPin()
+});
+
+createPin(mapView);
+
+win.add(mapView);
+
+win.open();
+
